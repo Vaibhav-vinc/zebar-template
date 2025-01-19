@@ -37,6 +37,8 @@
 				battery: { type: "battery" },
 				memory: { type: "memory" },
 				weather: { type: "weather" },
+				audio: { type: "audio" },
+				media: { type: "media" },
 			});
 
 			createRoot(document.getElementById("root")).render(<App />);
@@ -152,7 +154,8 @@
 							);
 					}
 				}
-				window.output = output
+				window.output = output;
+				console.log(output.media?.currentSession?.isPlaying);
 
 				return (
 					<div className="app">
@@ -182,25 +185,6 @@
 									)}
 								</div>
 							)}
-						</div>
-
-						<div className="center">
-							{output.date?.formatted}
-							{output.media?.currentSession && (
-								<div class="chip">
-									Media: {output.media?.currentSession?.title}
-									-{output.media?.currentSession?.artist}
-									<button
-										onClick={() =>
-											output.media?.togglePlayPause()
-										}>
-										⏯
-									</button>
-								</div>
-							)}
-						</div>
-
-						<div className="right">
 							{output.glazewm && (
 								<>
 									{output.glazewm.bindingModes.map(
@@ -233,7 +217,37 @@
 										}></button>
 								</>
 							)}
+						</div>
 
+						<div className="center">
+							{output.media?.currentSession ? (
+								<div className="chip">
+									Media: {output.media?.currentSession?.title}
+									-{output.media?.currentSession?.artist}
+									<button
+										onClick={() =>
+											output.media?.togglePlayPause()
+										}>
+										<i
+											className={`nf ${
+												output.media?.currentSession
+													?.isPlaying
+													? "nf-fa-pause"
+													: "nf-fa-play"
+											} `}></i>
+									</button>
+								</div>
+							) : (
+								output.date?.formatted
+							)}
+						</div>
+
+						<div className="right">
+							{output.audio?.defaultPlaybackDevice && (
+								<div className="chip">
+									{output.audio.defaultPlaybackDevice.name} - {output.audio.defaultPlaybackDevice.volume}%
+								</div>
+							)}
 							{output.network && (
 								<div className="network">
 									{getNetworkIcon(output.network)}
