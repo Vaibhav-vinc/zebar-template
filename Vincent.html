@@ -154,8 +154,6 @@
 							);
 					}
 				}
-				window.output = output;
-				console.log(output.media?.currentSession?.isPlaying);
 
 				return (
 					<div className="app">
@@ -245,7 +243,8 @@
 						<div className="right">
 							{output.audio?.defaultPlaybackDevice && (
 								<div className="chip">
-									{output.audio.defaultPlaybackDevice.name} - {output.audio.defaultPlaybackDevice.volume}%
+									{output.audio.defaultPlaybackDevice.name} -{" "}
+									{output.audio.defaultPlaybackDevice.volume}%
 								</div>
 							)}
 							{output.network && (
