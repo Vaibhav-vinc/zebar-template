@@ -4,14 +4,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<link rel="stylesheet" type="text/css" href="../normalize.css" />
+		<link rel="icon" href="data:;" />
 
 		<link
 			rel="stylesheet"
 			type="text/css"
-			href="./personalized-styles.css" />
-
-		<link rel="icon" href="data:;" />
+			href="./styles/personalized-styles.css" />
 
 		<script
 			src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"
@@ -220,8 +218,8 @@
 						<div className="center">
 							{output.media?.currentSession ? (
 								<div className="chip">
-									Media: {output.media?.currentSession?.title}
-									-{output.media?.currentSession?.artist}
+									{output.media?.currentSession?.title} -{" "}
+									{output.media?.currentSession?.artist}
 									<button
 										onClick={() =>
 											output.media?.togglePlayPause()
@@ -243,8 +241,7 @@
 						<div className="right">
 							{output.audio?.defaultPlaybackDevice && (
 								<div className="chip">
-									{output.audio.defaultPlaybackDevice.name} -{" "}
-									{output.audio.defaultPlaybackDevice.volume}%
+									{`${output.audio.defaultPlaybackDevice.name} - ${output.audio.defaultPlaybackDevice.volume}%`}
 								</div>
 							)}
 							{output.network && (
@@ -279,19 +276,22 @@
 
 							{output.battery && (
 								<div className="battery">
-									{/* Show icon for whether battery is charging. */}
 									{output.battery.isCharging && (
-										<i className="nf nf-md-power_plug charging-icon"></i>
+										<i className="nf nf-fa-plug charging-icon"></i>
 									)}
 									{getBatteryIcon(output.battery)}
-									{Math.round(output.battery.chargePercent)}%
+									{`${Math.round(
+										output.battery.chargePercent
+									)}%`}
 								</div>
 							)}
 
 							{output.weather && (
 								<div className="weather">
 									{getWeatherIcon(output.weather)}
-									{Math.round(output.weather.celsiusTemp)}°C
+									{`${Math.round(
+										output.weather.celsiusTemp
+									)}°C`}
 								</div>
 							)}
 						</div>
